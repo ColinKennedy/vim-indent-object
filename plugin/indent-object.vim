@@ -25,16 +25,20 @@
 "--------------------------------------------------------------------------------
 
 " Mappings excluding line below.
-onoremap <silent>ai :<C-u>cal <Sid>HandleTextObjectMapping(0, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
-onoremap <silent>ii :<C-u>cal <Sid>HandleTextObjectMapping(1, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
-vnoremap <silent>ai :<C-u>cal <Sid>HandleTextObjectMapping(0, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
-vnoremap <silent>ii :<C-u>cal <Sid>HandleTextObjectMapping(1, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
 
-" Mappings including line below.
-onoremap <silent>aI :<C-u>cal <Sid>HandleTextObjectMapping(0, 1, 0, [line("."), line("."), col("."), col(".")])<CR>
-onoremap <silent>iI :<C-u>cal <Sid>HandleTextObjectMapping(1, 1, 0, [line("."), line("."), col("."), col(".")])<CR>
-vnoremap <silent>aI :<C-u>cal <Sid>HandleTextObjectMapping(0, 1, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
-vnoremap <silent>iI :<C-u>cal <Sid>HandleTextObjectMapping(1, 1, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+if !exists("g:indent_object_no_default_key_mappings")
+    onoremap <silent>ai :<C-u>cal HandleTextObjectMapping(0, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+    onoremap <silent>ii :<C-u>cal HandleTextObjectMapping(1, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+    vnoremap <silent>ai :<C-u>cal HandleTextObjectMapping(0, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+    vnoremap <silent>ii :<C-u>cal HandleTextObjectMapping(1, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+
+    " Mappings including line below.
+    onoremap <silent>aI :<C-u>cal HandleTextObjectMapping(0, 1, 0, [line("."), line("."), col("."), col(".")])<CR>
+    onoremap <silent>iI :<C-u>cal HandleTextObjectMapping(1, 1, 0, [line("."), line("."), col("."), col(".")])<CR>
+    vnoremap <silent>aI :<C-u>cal HandleTextObjectMapping(0, 1, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+    vnoremap <silent>iI :<C-u>cal HandleTextObjectMapping(1, 1, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+endif
+
 
 let s:l0 = -1
 let s:l1 = -1
@@ -229,6 +233,6 @@ function! <Sid>TextObject(inner, incbelow, vis, range, count)
 
 endfunction
 
-function! <Sid>HandleTextObjectMapping(inner, incbelow, vis, range)
+function! HandleTextObjectMapping(inner, incbelow, vis, range)
 	call <Sid>TextObject(a:inner, a:incbelow, a:vis, a:range, v:count1)
 endfunction
