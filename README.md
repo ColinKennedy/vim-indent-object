@@ -20,6 +20,21 @@ very useful in languages such as Python, in which the syntax defines scope in
 terms of indentation. Using the objects defined in this plugin, an entire if
 structure can be quickly selected, for example.
 
+
+### Differences from michaeljsmith/vim-indent-object
+I didn't like that the mappings are enforced so I added a new variable
+`g:indent_object_no_default_key_mappings` which removes mappings and lets you
+define your own.
+
+Example:
+```vim
+let g:indent_object_no_default_key_mappings = '1'
+onoremap <silent>aI :<C-u>cal HandleTextObjectMapping(0, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+onoremap <silent>iI :<C-u>cal HandleTextObjectMapping(1, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+vnoremap <silent>aI :<C-u>cal HandleTextObjectMapping(0, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+vnoremap <silent>iI :<C-u>cal HandleTextObjectMapping(1, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+```
+
 ### Install
 
 - vim-plug
